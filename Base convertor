@@ -1,0 +1,46 @@
+def base_convertor(number,base):
+    unit_digit= (number % base)
+    new_number= number-unit_digit
+    if new_number//base >= base:
+        power=2
+        while True:
+            digits= new_number//(base**power)
+            position= digits // base
+            if digits >= base:
+                power += 1
+            if digits < base:
+                max_power=power
+                break
+        position_number=0
+        base_number=""
+        while max_power > 0:
+            position_power=0
+            for values in range(0,base):
+                position_power=values*(base**max_power)
+                if position_power <= new_number:
+                    power_value=values
+                    actual_power=position_power
+                else:
+                    break
+            position_number = power_value
+            if position_number==0:
+                new_number=new_number
+            else:
+                new_number= new_number-actual_power
+            base_number += str(position_number)
+            max_power -= 1
+        base_number += str(unit_digit)
+
+    elif new_number < base:
+        digits=unit_digit
+        base_number= str(unit_digit)
+    else:
+        digits= new_number//base
+        digits= str(number//base)
+        unit_digit= str(number % base)
+        base_number=(digits+unit_digit)
+
+    return int(base_number)
+
+
+print(base_convertor(13,5))

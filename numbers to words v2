@@ -1,0 +1,61 @@
+# numbers to words convertor
+numberwords={0: "zero",1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten", 
+                 11: "eleven", 12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen", 16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen", 
+                 20: "twenty", 30: "thirty", 40: "forty", 50: "fifty", 60: "sixty", 70: "seventy", 80: "eighty", 90: "ninety"} 
+ 
+power_numbers={1: "", 2: "thousand", 3: "million", 4: "billion", 5: "trillion", 6: "quadrillion", 7: "quintillion", 8: "sextillion", 9: "septillion",10: "octillion", 
+               11: "nonillion", 12: "decillion",13: "undecillion", 14: "duodecillion", 15: "tredecillion", 16: "quattuordecillion", 17: "quindecillion", 18: "sexdeclliion", 
+               19: "septendecillion",  20:"octodecillion", 21: "novemdecillion", 22: "vigintillion"}
+
+def number_words(numbers):
+    number_in_words=""
+    string=str(numbers)
+    if len(string)==3:
+        if numbers != 0 and numbers%100 != 0:
+            number_in_words += numberwords[(int(string[0]))]+" hundred "
+            string=string[1:]
+            numbers=int(string)
+        elif numbers != 0 and numbers %100==0:
+            number_in_words += numberwords[(int(string[0]))]+" hundred "      
+    if len(string)<3 and numbers<21:
+        number_in_words+=numberwords[numbers]
+    elif len(string)<3 and numbers % 10==0:
+        number_in_words+=numberwords[numbers]
+    elif len(string)<3 and numbers % 10!=0:
+        number_in_words+=numberwords[(int(string[0])*10)]+"-"+numberwords[int(string[1])]
+    return number_in_words
+
+def sort(number):
+    number_list=[]
+    string=str(number)
+    while len(string)>0:
+        number_list.insert(0,int(string[-3:]))
+        string=string[0:-3]
+    return number_list
+
+def positional_power(number_list):
+    final_number=""
+    index=len(number_list)
+    for items in number_list:
+        if items==0:
+            if len(number_list)==1:
+                final_number += number_words(items)+" "
+        else:
+            final_number += number_words(items)+" "+power_numbers[index]+" "
+        index-= 1
+    return final_number
+
+def combiner(number):
+    user_number_list=sort(number)
+    user_number=positional_power(user_number_list)
+    return user_number
+
+if __name__=="__main__":
+    while True:
+        user_number=int(input("Enter any number >= 0: "))
+        user_number_words=combiner(user_number)
+        print(f"The number {user_number} in words is {user_number_words}.")
+        status=input("Continue? y/n: ")
+        if status=="n":
+            print("Thank you!")
+            break
