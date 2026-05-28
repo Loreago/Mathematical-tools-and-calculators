@@ -1,0 +1,38 @@
+def pascal(row_number):
+    number=1
+    row=[0,1,0]
+    new_row=[]
+    triangle=[]
+    while number <= row_number:
+        index=0
+        new_row=[]
+        while index+1<len(row):
+            if number==1:
+                new_row=[1]
+                break
+            num=row[index]+row[index+1]
+            new_row.append(num)
+            index+=1
+        elements=new_row.copy()
+        triangle.append(elements)
+        row=new_row
+        row.insert(0,0)
+        row.append(0)
+        number+=1
+    return triangle
+
+def pascal_triangle(triangle: list):
+    triangle_list=[]
+    for items in triangle:
+        string=""
+        for digits in items:
+            string+=str(digits)+"     "
+        triangle_list.append(string)
+    length=len(triangle)
+    for items in triangle_list:
+        print("   "*length+(items))
+        length-=1
+
+
+thing=pascal(10)
+print(pascal_triangle(thing))
