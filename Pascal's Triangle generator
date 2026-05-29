@@ -25,14 +25,27 @@ def pascal_triangle(triangle: list):
     triangle_list=[]
     for items in triangle:
         string=""
+        index=0
         for digits in items:
-            string+=str(digits)+"     "
+            if index!=len(items)-1:
+                string+=str(digits)+" "
+            else:
+                string+=str(digits)
+            index+=1
         triangle_list.append(string)
-    length=len(triangle)
+    mid_point=(len(triangle_list[-1]))//2
+    median=triangle_list[-1][0:mid_point]
+    median_length=len(median)
     for items in triangle_list:
-        print("   "*length+(items))
-        length-=1
-
-
-thing=pascal(10)
-print(pascal_triangle(thing))
+        mid=(len(items))//2
+        med=items[0:mid]
+        median=len(med)
+        print(f"{" "*(median_length-median)}{items}")
+        
+if __name__=="__main__":
+    while True:
+        row_number=int(input("Enter the number of rows of the triangle, enter 0 to finish: "))
+        if row_number==0:
+            break
+        triangle_elements=pascal(row_number)
+        pascal_triangle(triangle_elements)
