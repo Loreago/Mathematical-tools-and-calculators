@@ -84,8 +84,9 @@ if __name__=="__main__":
         ending_leap_count=year_count(user_ending_year)
         ending_year=((total_year_count(user_ending_year,ending_leap_count)))+(days_of_same_year(1,1,user_ending_day,user_ending_month,leap_end_year_status))
         elapsed_days=ending_year-starting_year
+        elapsed_days_week=ending_year-(-365)
         print(f"The total number of days excluding the ending date are {elapsed_days} days")
-        print(f"The total number of days including it are {elapsed_days+1} and the end day is a {day_of_the_week(elapsed_days+1)}.")
+        print(f"The total number of days including it are {elapsed_days+1} and the end day is a {day_of_the_week(elapsed_days_week+1)}.")
         program_status=input("Enter y to continue or n to exit: ").lower()
         if program_status=="n":
             break
