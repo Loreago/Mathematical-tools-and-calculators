@@ -56,13 +56,14 @@ def partition_print(partition: list):
     return string
 
 
-def partition(original_number: list):
+def partition(original_number: list,printout: bool):
     """partition function that generates the next partition when given a number or partition. Does not use Recursion."""
     if len(original_number)==1 and original_number[0]==1:
         return original_number
     else:
         if len(original_number)==1:
-            print(partition_print(original_number))
+            if printout==True:
+                print(partition_print(original_number))
         index=-1
         main_number=sum(original_number)
         for number in original_number[::-1]:    
@@ -91,17 +92,18 @@ def partition(original_number: list):
                 if sum(new_partition)+number==main_number:
                     new_partition.append(number)
                     break
-        print(partition_print(new_partition))
+        if printout==True:
+            print(partition_print(new_partition))
         if len(new_partition)==new_partition.count(1):
-            print("all partitions printed")
+            print("All partitions printed/counted.")
     return new_partition
 
-def partitions(number: int):
+def partitions(number: int,printout: bool):
     partition_number=[]
     partition_number.append(number)
     partition_count=1
     while True:
-        new_number=partition(partition_number)
+        new_number=partition(partition_number,printout)
         partition_count+=1
         if len(new_number)==new_number.count(1):
             break
@@ -109,6 +111,11 @@ def partitions(number: int):
     return partition_count
 
 if __name__=="__main__":
-    partition_number=int(input("Enter the number whose partitions are to be generated: "))
-    output=partitions(partition_number)
-    print(f"There are {output} partitions of {partition_number} including itself.")
+    partition_number=int(input("Enter the number whose partitions are to be generated/counted: "))
+    prints_partition=input("Do you want the partitions to be printed? Not recommended for large numbers. Enter y/n: ")
+    if prints_partition=="y":
+        printout=True
+    else:
+        printout=False
+    output=partitions(partition_number,printout)
+    print(f"There are {output-1} partitions of {partition_number}. {output} partitions including itself.")
